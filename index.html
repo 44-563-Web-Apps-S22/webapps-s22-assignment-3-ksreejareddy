@@ -58,3 +58,33 @@ to meat, eggs, spices etc. Biryani is one of the most popular dishes in South As
                     </tr>
                   </table>
                   <hr>
+                  <h3>String Hashing</h3>
+                  <blockquote>Hashing algorithms are helpful in solving a lot of problems.
+
+                    We want to solve the problem of comparing strings efficiently. The brute force way of doing so is just to compare the letters of both strings, which has a time complexity of 
+                     if 
+                     and 
+                     are the sizes of the two strings. We want to do better. The idea behind strings is the following: we convert each string into an integer and compare those instead of the strings. Comparing two strings is then an  operation.
+                    
+                    For the conversion, we need a so-called hash function. The goal of it is to convert a string into an integer, the so-called hash of the string. The following condition has to hold: if two strings  and  are equal (), then also their hashes have to be equal (). Otherwise, we will not be able to compare strings.</blockquote>
+                       <a href="https://cp-algorithms.com/string/string-hashing.html">Link to dynamic programming</a>
+                       <pre>
+                        vector<vector<int>> group_identical_strings(vector<string> const& s) {
+                            int n = s.size();
+                            vector<pair<long long, int>> hashes(n);
+                            for (int i = 0; i < n; i++)
+                                hashes[i] = {compute_hash(s[i]), i};
+                        
+                            sort(hashes.begin(), hashes.end());
+                        
+                            vector<vector<int>> groups;
+                            for (int i = 0; i < n; i++) {
+                                if (i == 0 || hashes[i].first != hashes[i-1].first)
+                                    groups.emplace_back();
+                                groups.back().push_back(hashes[i].second);
+                            }
+                            return groups;
+                        }
+                       </pre>
+        </body>
+</html>
